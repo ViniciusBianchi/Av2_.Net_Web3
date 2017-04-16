@@ -1,0 +1,234 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+<div class="page-header">
+    <h1>LocadoraService</h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Filmes</h2>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled" data-bind="foreach: filmes">
+                    <li>
+                        <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: Nome"></span>: <span data-bind="text: Categoria"></span>
+                        <small><a href="#" data-bind="click: $parent.getFilmeDetail">Detalhes</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+    </div>
+        <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Locadoras</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled" data-bind="foreach: locadoras">
+                            <li>
+                                <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: Nome"></span>: <span data-bind="text: Endereco"></span>
+                                <small><a href="#" data-bind="click: $parent.getLocadoraDetail">Detalhes</a></small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Clientes</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled" data-bind="foreach: clientes">
+                            <li>
+                                <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: Nome"></span>: <span data-bind="text: NomeDoFilme"></span>
+                                <small><a href="#" data-bind="click: $parent.getClienteDetail">Detalhes do Cliente</a></small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+            </div>
+
+    <div class="col-md-8">
+        <!-- ko if:detailFilmes() -->
+        <div class="col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Detalhes do Filme</h2>
+                </div>
+                <table class="table">
+                    <tr><td>Id</td><td data-bind="text: detailFilmes().Id"></td></tr>
+                    <tr><td>Nome</td><td data-bind="text: detailFilmes().Nome"></td></tr>
+                    <tr><td>Categoria</td><td data-bind="text: detailFilmes().Categoria"></td></tr>
+                    <tr><td>Faixa Etaria</td><td data-bind="text: detailFilmes().FaixaEtaria"></td></tr>
+                    <tr><td>Preço</td><td data-bind="text: detailFilmes().Preco"></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- /ko -->
+    </div>
+
+            <div class="col-md-8">
+                <!-- ko if:detailLocadoras() -->
+                <div class="col-md-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Detalhes Locadora</h2>
+                        </div>
+                        <table class="table">
+                            <tr><td>Id</td><td data-bind="text: detailLocadoras().Id"></td></tr>
+                            <tr><td>Nome</td><td data-bind="text: detailLocadoras().Nome"></td></tr>
+                            <tr><td>Endereço</td><td data-bind="text: detailLocadoras().Endereco"></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- /ko -->
+            </div>
+
+            <div class="col-md-8">
+                <!-- ko if:detailClientes() -->
+                <div class="col-md-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Detalhes Cliente</h2>
+                        </div>
+                        <table class="table">
+                            <tr><td>Id</td><td data-bind="text: detailClientes().Id"></td></tr>
+                            <tr><td>Nome</td><td data-bind="text: detailClientes().Nome"></td></tr>
+                            <tr><td>CPF</td><td data-bind="text: detailClientes().CPF"></td></tr>
+                            <tr><td>FilmeId</td><td data-bind="text: detailClientes().FilmeId"></td></tr>
+                            <tr><td>NomeDoFilme</td><td data-bind="text: detailClientes().NomeDoFilme"></td></tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- /ko --> 
+            </div>
+
+        
+    
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Add Filme</h2>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: addFilme">
+                    
+                    <div class="form-group" data-bind="with: newFilme">
+                        <label for="inputId" class="col-sm-2 control-label">Id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputId" data-bind="value:Id" />
+                        </div>
+
+                        <label for="inputNome" class="col-sm-2 control-label">Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNome" data-bind="value:Nome" />
+                        </div>
+
+                        <label for="inputCategoria" class="col-sm-2 control-label">Categoria</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputCategoria" data-bind="value:Categoria" />
+                        </div>
+
+                        <label for="inputFaixaEtaria" class="col-sm-2 control-label">Faixa Etária</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputFaixaEtaria" data-bind="value:FaixaEtaria" />
+                        </div>
+
+                        <label for="inputPreco" class="col-sm-2 control-label">Preço</label>
+                        <div class="col-sm-10">
+                            <input type="number" step="any" class="form-control" id="inputPreco" data-bind="value:Preco" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Add Locadora</h2>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: addLocadora">
+                  
+                    <div class="form-group" data-bind="with: newLocadora">
+                        <label for="inputId" class="col-sm-2 control-label">Id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputId" data-bind="value:Id" />
+                        </div>
+
+                        <label for="inputNome" class="col-sm-2 control-label">Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNome" data-bind="value:Nome" />
+                        </div>
+
+                        <label for="inputEndereco" class="col-sm-2 control-label">Endereco</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputEndereço" data-bind="value:Endereco" />
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Add Cliente</h2>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: addCliente">
+                    <div class="form-group">
+                        <div class="form-group" data-bind="with: newCliente">
+                            <label for="inputId" class="col-sm-2 control-label">Id</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputId" data-bind="value:Id" />
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-bind="with: newCliente">
+                        <label for="inputNome" class="col-sm-2 control-label">Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNome" data-bind="value:Nome" />
+                        </div>
+
+                        <label for="inputCPF" class="col-sm-2 control-label">CPF</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputCPF" data-bind="value:CPF" />
+                        </div>
+
+                        <label for="inputFilmeId" class="col-sm-2 control-label">FilmeId</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputFilmeId" data-bind="value:FilmeId" />
+                        </div>
+
+                        <label for="inputNomeDoFilme" class="col-sm-2 control-label">Nome do Filme</label>
+                        <div class="col-sm-10">
+                            <input type="text" step="any" class="form-control" id="inputNomeDoFilme" data-bind="value: NomeDoFilme" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

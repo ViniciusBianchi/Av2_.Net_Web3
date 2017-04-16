@@ -1,0 +1,38 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app2")
+}
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Locadoras</h2>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled" data-bind="foreach: locadoras">
+                        <li>
+                            <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: Nome"></span>: <span data-bind="text: Endereco"></span>
+                            <small><a href="#" data-bind="click: $parent.getLocadoraDetail">Detalhes</a></small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+        </div>
+
+        <div class="col-md-8">
+            <!-- ko if:detail() -->
+
+            <div class="col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Detalhes Locadora</h2>
+                    </div>
+                    <table class="table">
+                        <tr><td>Id</td><td data-bind="text: detail().Id"></td></tr>
+                        <tr><td>Nome</td><td data-bind="text: detail().Nome"></td></tr>
+                        <tr><td>Endereço</td><td data-bind="text: detail().Endereco"></td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- /ko -->
+        </div>
